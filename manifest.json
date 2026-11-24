@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "albertus.nightlight",
+  "name": "Night Light Schedule",
+  "version": "2.0.0",
+  "author": "Albertus de Klerk",
+  "description": "Fully customisable night light: a tint slider and a 24h schedule of points that jump, fade or step between temperatures. Replaces omarchy.nightlight.",
+  "kinds": [
+    "service",
+    "bar-widget"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "service": "Service.qml",
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Night Light",
+    "description": "Tint slider and editable day/night schedule",
+    "category": "System",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.nightlight"
+  },
+  "license": "MIT"
+}
