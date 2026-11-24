@@ -44,3 +44,11 @@ Omarchy 4.5+ with `hyprsunset`. Tested on Omarchy 4.5.0.
 ## Development
 
 The schedule maths lives in `Schedule.js`, which has no QML in it: `node tests/schedule.test.js`.
+
+## Remove
+
+```bash
+omarchy plugin remove albertus.nightlight
+omarchy plugin enable omarchy.nightlight
+omarchy restart shell
+```
