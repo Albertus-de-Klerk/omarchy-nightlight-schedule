@@ -112,6 +112,32 @@ Item {
     setPoints(d.points)
   }
 
+  // ---------------- warm accents ----------------
+  // Schedule on: focused-window border + menu borders go warm orange.
+  // Schedule off: back to the theme's colours (warm-accents.sh).
+  readonly property string accentScript: Qt.resolvedUrl("warm-accents.sh").toString().replace("file://", "")
+  property string accentState: ""
+  onEnabledChanged: syncAccents()
+  function syncAccents() {
+    if (!configLoaded) return
+    var want = enabled ? "on" : "off"
+    if (want === accentState) return
+    accentState = want
+    if (accentProcess.running) { accentPending = true; return }
+    accentProcess.command = ["bash", accentScript, want]
+    accentProcess.running = true
+  }
+  property bool accentPending: false
+  Process {
+    id: accentProcess
+    onExited: function() {
+      if (!root.accentPending) return
+      root.accentPending = false
+      command = ["bash", root.accentScript, root.accentState]
+      running = true
+    }
+  }
+
   function refresh() {
     // External callers (omarchy-toggle-nightlight, menu) ask for a refresh;
     // force a re-check of what hyprsunset actually shows.
@@ -127,6 +153,7 @@ Item {
     points = c.points
     override = c.override
     configLoaded = true
+    syncAccents()
     tick()
   }
 
