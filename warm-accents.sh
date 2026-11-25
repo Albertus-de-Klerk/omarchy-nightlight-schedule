@@ -1,12 +1,12 @@
 #!/bin/bash
-# Warm accents: while the night light schedule is on and tinting the screen
-# (below 6500K), the focused window's border (and notifications / the password
-# prompt) turn warm orange; otherwise they use the current theme's colours.
+# Warm accents: while the screen is tinted (below 6500K, by the schedule or
+# the slider), the focused window's border (and notifications / the password
+# prompt) turn warm orange; at 6500K they use the current theme's colours.
 # Inactive borders are untouched. Bar menus always use the theme's system-menu
 # border (the same outline as the Keybindings / app menus).
 #   warm-accents.sh on|off
 #
-# Run by Service.qml whenever the schedule switches. Two parts:
+# Run by Service.qml whenever the screen goes from tinted to untinted or back. Two parts:
 #  1. Hyprland: applied live with `hyprctl eval` (no reload). Off re-runs the
 #     theme's own hyprland.lua, so whatever theme is active comes back.
 #  2. Shell: a marked block in ~/.config/omarchy/shell.toml (user overrides,

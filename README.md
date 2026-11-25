@@ -15,13 +15,13 @@ A night light panel for the Omarchy bar with a fully customisable 24-hour schedu
 - **Schedule switch** in the panel header, which is remembered across reboots. With the schedule off the screen is untinted, but the slider still works.
 - Uses theme colours only, so the panel follows your Omarchy theme.
 - Right-click the bar icon to toggle the schedule.
-- **Warm accents** (see below): the focused window's border turns orange while the schedule is on, and bar menus use the system menu border.
+- **Warm accents** (see below): the focused window's border turns orange whenever the screen is tinted, and bar menus use the system menu border.
 
 The default schedule is 6500K until 17:00, then a fade to 1500K by 22:00 that holds until 05:00.
 
 ## Warm accents
 
-While the schedule is on and the screen is tinted, the focused window's border, notifications and the password prompt turn a warm orange gradient. With the schedule off, or at 6500K (No tint, e.g. during the day), they use the theme's colours. Inactive window borders are untouched.
+Whenever the screen is tinted (below 6500K, whether by the schedule or the slider), the focused window's border, notifications and the password prompt turn a warm orange gradient. At 6500K (No tint) they use the theme's colours. Inactive window borders are untouched.
 
 Bar menus always use the theme's system-menu border, the same outline as the Keybindings and app menus, so the dropdowns stay calm in both modes.
 

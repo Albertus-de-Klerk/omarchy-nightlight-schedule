@@ -113,12 +113,12 @@ Item {
   }
 
   // ---------------- warm accents ----------------
-  // Orange accents only while the screen is actually tinted: schedule on and
-  // below 6500K ("No tint"). Otherwise the theme's colours (warm-accents.sh).
-  // Follows manual tints too, since it reads the applied target.
+  // Orange accents whenever the screen is tinted (below 6500K), whatever set
+  // the tint: the schedule or the slider, with the schedule on or off.
+  // At 6500K ("No tint") the theme's colours (warm-accents.sh).
   readonly property string accentScript: Qt.resolvedUrl("warm-accents.sh").toString().replace("file://", "")
   property string accentState: ""
-  readonly property bool accentsWarm: enabled && targetTemperature < neutralTemperature
+  readonly property bool accentsWarm: targetTemperature < neutralTemperature
   onAccentsWarmChanged: syncAccents()
   function syncAccents() {
     if (!configLoaded) return
