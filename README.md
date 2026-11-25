@@ -21,19 +21,19 @@ The default schedule is 6500K until 17:00, then a fade to 1500K by 22:00 that ho
 
 ## Warm accents
 
-While the schedule is on, the focused window's border, notifications and the password prompt turn a warm orange gradient. Switching the schedule off restores the theme's colours. Inactive window borders are untouched.
+While the schedule is on and the screen is tinted, the focused window's border, notifications and the password prompt turn a warm orange gradient. With the schedule off, or at 6500K (No tint, e.g. during the day), they use the theme's colours. Inactive window borders are untouched.
 
 Bar menus always use the theme's system-menu border, the same outline as the Keybindings and app menus, so the dropdowns stay calm in both modes.
 
 `warm-accents.sh` does this live: `hyprctl eval` for Hyprland, plus a marked block in `~/.config/omarchy/shell.toml` for the shell. Don't add your own `[popups]` or `[hyprland]` sections to that file while the block is there.
 
-A Hyprland config reload reapplies the theme border. To keep the orange through reloads, add this to `~/.config/hypr/looknfeel.lua`:
+A Hyprland config reload reapplies the theme border. To keep the right colour through reloads (the plugin records the current state in `~/.local/state/omarchy/nightlight-accents`), add this to `~/.config/hypr/looknfeel.lua`:
 
 ```lua
-local f = io.open(os.getenv("HOME") .. "/.config/omarchy/nightlight.json", "r")
-local text = f and f:read("*a") or ""
+local f = io.open(os.getenv("HOME") .. "/.local/state/omarchy/nightlight-accents", "r")
+local state = f and f:read("*l") or "off"
 if f then f:close() end
-if not text:match('"enabled"%s*:%s*false') then
+if state == "on" then
   local orange = { colors = { "rgba(ffb347ff)", "rgba(ff6a00ff)" }, angle = 45 }
   hl.config({ general = { col = { active_border = orange } }, group = { col = { border_active = orange } } })
 end

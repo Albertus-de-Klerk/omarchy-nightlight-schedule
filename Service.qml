@@ -113,14 +113,16 @@ Item {
   }
 
   // ---------------- warm accents ----------------
-  // Schedule on: focused-window border + menu borders go warm orange.
-  // Schedule off: back to the theme's colours (warm-accents.sh).
+  // Orange accents only while the screen is actually tinted: schedule on and
+  // below 6500K ("No tint"). Otherwise the theme's colours (warm-accents.sh).
+  // Follows manual tints too, since it reads the applied target.
   readonly property string accentScript: Qt.resolvedUrl("warm-accents.sh").toString().replace("file://", "")
   property string accentState: ""
-  onEnabledChanged: syncAccents()
+  readonly property bool accentsWarm: enabled && targetTemperature < neutralTemperature
+  onAccentsWarmChanged: syncAccents()
   function syncAccents() {
     if (!configLoaded) return
-    var want = enabled ? "on" : "off"
+    var want = accentsWarm ? "on" : "off"
     if (want === accentState) return
     accentState = want
     if (accentProcess.running) { accentPending = true; return }

@@ -1,9 +1,9 @@
 #!/bin/bash
-# Warm accents: while the night light schedule is on, the focused window's
-# border (and notifications / the password prompt) turn warm orange; when it's
-# off, they go back to the current theme's colours. Inactive borders are
-# untouched. Bar menus always use the theme's system-menu border (the same
-# outline as the Keybindings / app menus), in both states.
+# Warm accents: while the night light schedule is on and tinting the screen
+# (below 6500K), the focused window's border (and notifications / the password
+# prompt) turn warm orange; otherwise they use the current theme's colours.
+# Inactive borders are untouched. Bar menus always use the theme's system-menu
+# border (the same outline as the Keybindings / app menus).
 #   warm-accents.sh on|off
 #
 # Run by Service.qml whenever the schedule switches. Two parts:
@@ -18,6 +18,9 @@ orange_lua='{ colors = { "rgba(ffb347ff)", "rgba(ff6a00ff)" }, angle = 45 }'
 orange_toml='rgba(ffb347ff) rgba(ff6a00ff) 45deg'
 theme_lua="$HOME/.local/state/omarchy/current/theme/hyprland.lua"
 shell_toml="$HOME/.config/omarchy/shell.toml"
+# Current state for Hyprland config reloads (see README: looknfeel.lua snippet)
+state_file="${XDG_STATE_HOME:-$HOME/.local/state}/omarchy/nightlight-accents"
+mkdir -p "$(dirname "$state_file")" && printf '%s\n' "$state" >"$state_file"
 begin='# >>> albertus.nightlight accents (managed by the Night Light plugin)'
 end='# <<< albertus.nightlight accents'
 old_begin='# >>> albertus.nightlight warm accents (managed: removed when the schedule is off)'
